@@ -1,0 +1,41 @@
+; ModuleID = 'factorialCycle'
+source_filename = "factorialCycle"
+
+@n = global i32 0
+@f = global i32 0
+
+declare i32 @writeln(i32)
+
+declare i32 @readln(i32*)
+
+define i32 @main() {
+entry:
+  store i32 1, i32* @f
+  %"readln into address" = call i32 @readln(i32* @n)
+  br label %condition
+
+functionReturn:                                   ; preds = %after_loop
+  ret i32 0
+
+condition:                                        ; preds = %loop, %entry
+  %n = load i32, i32* @n
+  %greaterEq = icmp sge i32 %n, 2
+  %0 = zext i1 %greaterEq to i32
+  %1 = icmp eq i32 %0, 1
+  br i1 %1, label %loop, label %after_loop
+
+loop:                                             ; preds = %condition
+  %f = load i32, i32* @f
+  %n1 = load i32, i32* @n
+  %multiply = mul i32 %f, %n1
+  store i32 %multiply, i32* @f
+  %n2 = load i32, i32* @n
+  %"incremented/decremented" = add i32 %n2, -1
+  store i32 %"incremented/decremented", i32* @n
+  br label %condition
+
+after_loop:                                       ; preds = %condition
+  %f3 = load i32, i32* @f
+  %2 = call i32 @writeln(i32 %f3)
+  br label %functionReturn
+}

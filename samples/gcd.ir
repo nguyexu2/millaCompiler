@@ -1,0 +1,166 @@
+; ModuleID = 'gcd'
+source_filename = "gcd"
+
+declare i32 @writeln(i32)
+
+declare i32 @readln(i32*)
+
+define i32 @gcdi(i32 %a, i32 %b) {
+entry:
+  %tmp = alloca i32, i32 0
+  %gcdi = alloca i32, i32 0
+  %b2 = alloca i32, i32 0
+  %a1 = alloca i32, i32 0
+  store i32 %a, i32* %a1
+  store i32 %b, i32* %b2
+  br label %condition
+
+functionReturn:                                   ; preds = %after_loop
+  %0 = load i32, i32* %gcdi
+  ret i32 %0
+
+condition:                                        ; preds = %loop, %entry
+  %b3 = load i32, i32* %b2
+  %equal = icmp ne i32 %b3, 0
+  %1 = zext i1 %equal to i32
+  %2 = icmp eq i32 %1, 1
+  br i1 %2, label %loop, label %after_loop
+
+loop:                                             ; preds = %condition
+  %b4 = load i32, i32* %b2
+  store i32 %b4, i32* %tmp
+  %a5 = load i32, i32* %a1
+  %b6 = load i32, i32* %b2
+  %remainder = srem i32 %a5, %b6
+  store i32 %remainder, i32* %b2
+  %tmp7 = load i32, i32* %tmp
+  store i32 %tmp7, i32* %a1
+  br label %condition
+
+after_loop:                                       ; preds = %condition
+  %a8 = load i32, i32* %a1
+  store i32 %a8, i32* %gcdi
+  br label %functionReturn
+}
+
+define i32 @gcdr(i32 %a, i32 %b) {
+entry:
+  %tmp = alloca i32, i32 0
+  %gcdr = alloca i32, i32 0
+  %b2 = alloca i32, i32 0
+  %a1 = alloca i32, i32 0
+  store i32 %a, i32* %a1
+  store i32 %b, i32* %b2
+  %a3 = load i32, i32* %a1
+  %b4 = load i32, i32* %b2
+  %remainder = srem i32 %a3, %b4
+  store i32 %remainder, i32* %tmp
+  %tmp5 = load i32, i32* %tmp
+  %equal = icmp eq i32 %tmp5, 0
+  %0 = zext i1 %equal to i32
+  %"ifcond-if_EQ_1 - iftrue" = icmp eq i32 %0, 1
+  br i1 %"ifcond-if_EQ_1 - iftrue", label %then, label %else
+
+functionReturn:                                   ; preds = %after_if, %then
+  %1 = load i32, i32* %gcdr
+  ret i32 %1
+
+then:                                             ; preds = %entry
+  %b6 = load i32, i32* %b2
+  store i32 %b6, i32* %gcdr
+  br label %functionReturn
+
+else:                                             ; preds = %entry
+  br label %after_if
+
+after_if:                                         ; preds = %else, %after_exit
+  %b7 = load i32, i32* %b2
+  %tmp8 = load i32, i32* %tmp
+  %2 = call i32 @gcdr(i32 %b7, i32 %tmp8)
+  store i32 %2, i32* %gcdr
+  br label %functionReturn
+
+after_exit:                                       ; No predecessors!
+  br label %after_if
+}
+
+define i32 @gcdr_guessing_inner(i32 %a, i32 %b, i32 %c) {
+entry:
+  %gcdr_guessing_inner = alloca i32, i32 0
+  %c3 = alloca i32, i32 0
+  %b2 = alloca i32, i32 0
+  %a1 = alloca i32, i32 0
+  store i32 %a, i32* %a1
+  store i32 %b, i32* %b2
+  store i32 %c, i32* %c3
+  %a4 = load i32, i32* %a1
+  %c5 = load i32, i32* %c3
+  %remainder = srem i32 %a4, %c5
+  %equal = icmp eq i32 %remainder, 0
+  %0 = zext i1 %equal to i32
+  %b6 = load i32, i32* %b2
+  %c7 = load i32, i32* %c3
+  %remainder8 = srem i32 %b6, %c7
+  %equal9 = icmp eq i32 %remainder8, 0
+  %1 = zext i1 %equal9 to i32
+  %and = and i32 %0, %1
+  %"ifcond-if_EQ_1 - iftrue" = icmp eq i32 %and, 1
+  br i1 %"ifcond-if_EQ_1 - iftrue", label %then, label %else
+
+functionReturn:                                   ; preds = %after_if, %then
+  %2 = load i32, i32* %gcdr_guessing_inner
+  ret i32 %2
+
+then:                                             ; preds = %entry
+  %c10 = load i32, i32* %c3
+  store i32 %c10, i32* %gcdr_guessing_inner
+  br label %functionReturn
+
+else:                                             ; preds = %entry
+  br label %after_if
+
+after_if:                                         ; preds = %else, %after_exit
+  %a11 = load i32, i32* %a1
+  %b12 = load i32, i32* %b2
+  %c13 = load i32, i32* %c3
+  %sub = sub i32 %c13, 1
+  %3 = call i32 @gcdr_guessing_inner(i32 %a11, i32 %b12, i32 %sub)
+  store i32 %3, i32* %gcdr_guessing_inner
+  br label %functionReturn
+
+after_exit:                                       ; No predecessors!
+  br label %after_if
+}
+
+define i32 @gcdr_guessing(i32 %a, i32 %b) {
+entry:
+  %gcdr_guessing = alloca i32, i32 0
+  %b2 = alloca i32, i32 0
+  %a1 = alloca i32, i32 0
+  store i32 %a, i32* %a1
+  store i32 %b, i32* %b2
+  %a3 = load i32, i32* %a1
+  %b4 = load i32, i32* %b2
+  %b5 = load i32, i32* %b2
+  %0 = call i32 @gcdr_guessing_inner(i32 %a3, i32 %b4, i32 %b5)
+  store i32 %0, i32* %gcdr_guessing
+  br label %functionReturn
+
+functionReturn:                                   ; preds = %entry
+  %1 = load i32, i32* %gcdr_guessing
+  ret i32 %1
+}
+
+define i32 @main() {
+entry:
+  %0 = call i32 @gcdi(i32 54, i32 81)
+  %1 = call i32 @writeln(i32 %0)
+  %2 = call i32 @gcdr(i32 54, i32 81)
+  %3 = call i32 @writeln(i32 %2)
+  %4 = call i32 @gcdr_guessing(i32 54, i32 81)
+  %5 = call i32 @writeln(i32 %4)
+  br label %functionReturn
+
+functionReturn:                                   ; preds = %entry
+  ret i32 0
+}

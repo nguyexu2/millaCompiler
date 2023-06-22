@@ -1,0 +1,52 @@
+; ModuleID = 'factorialRec'
+source_filename = "factorialRec"
+
+@n = global i32 0
+
+declare i32 @writeln(i32)
+
+declare i32 @readln(i32*)
+
+define i32 @fact(i32 %n) {
+entry:
+  %fact = alloca i32, i32 0
+  %n1 = alloca i32, i32 0
+  store i32 %n, i32* %n1
+  %n2 = load i32, i32* %n1
+  %equal = icmp eq i32 %n2, 0
+  %0 = zext i1 %equal to i32
+  %"ifcond-if_EQ_1 - iftrue" = icmp eq i32 %0, 1
+  br i1 %"ifcond-if_EQ_1 - iftrue", label %then, label %else
+
+functionReturn:                                   ; preds = %after_if
+  %1 = load i32, i32* %fact
+  ret i32 %1
+
+then:                                             ; preds = %entry
+  store i32 1, i32* %fact
+  br label %after_if
+
+else:                                             ; preds = %entry
+  %n3 = load i32, i32* %n1
+  %n4 = load i32, i32* %n1
+  %sub = sub i32 %n4, 1
+  %2 = call i32 @fact(i32 %sub)
+  %multiply = mul i32 %n3, %2
+  store i32 %multiply, i32* %fact
+  br label %after_if
+
+after_if:                                         ; preds = %else, %then
+  br label %functionReturn
+}
+
+define i32 @main() {
+entry:
+  %"readln into address" = call i32 @readln(i32* @n)
+  %n = load i32, i32* @n
+  %0 = call i32 @fact(i32 %n)
+  %1 = call i32 @writeln(i32 %0)
+  br label %functionReturn
+
+functionReturn:                                   ; preds = %entry
+  ret i32 0
+}

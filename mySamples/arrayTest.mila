@@ -1,0 +1,27 @@
+program arr;
+
+
+procedure a();
+var
+    x : array [0 .. 20] of integer;
+    b := 6: integer;
+begin
+    x[1] := 5;
+    writeln(x[1]);
+    writeln(b);
+    b:=x[1];
+    writeln(b);
+    b:= 84;
+    writeln(b);
+end;
+
+var
+    y : array [0 .. 5] of integer;
+begin
+    a();
+    for I:= 0 to 5 do
+    begin
+        readln(y[I]);
+        writeln(y[I]);
+    end;
+end.

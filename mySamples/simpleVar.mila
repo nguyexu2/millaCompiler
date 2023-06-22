@@ -1,0 +1,16 @@
+program simpleVar;
+
+function a(y:integer) :integer;
+var
+    x := 10: integer;
+begin
+    x := y*x;
+    writeln(x);
+end;
+
+var
+    tmp := 10: integer;
+
+begin
+    a(10)
+end.

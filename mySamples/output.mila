@@ -1,0 +1,5 @@
+program mila;
+
+begin
+    writeln( 2 + 1);
+end.

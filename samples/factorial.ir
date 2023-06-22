@@ -1,0 +1,83 @@
+; ModuleID = 'factorial'
+source_filename = "factorial"
+
+declare i32 @writeln(i32)
+
+declare i32 @readln(i32*)
+
+define i32 @facti(i32 %n) {
+entry:
+  %facti = alloca i32, i32 0
+  %n1 = alloca i32, i32 0
+  store i32 %n, i32* %n1
+  store i32 1, i32* %facti
+  br label %condition
+
+functionReturn:                                   ; preds = %after_loop
+  %0 = load i32, i32* %facti
+  ret i32 %0
+
+condition:                                        ; preds = %loop, %entry
+  %n2 = load i32, i32* %n1
+  %greater = icmp sgt i32 %n2, 1
+  %1 = zext i1 %greater to i32
+  %2 = icmp eq i32 %1, 1
+  br i1 %2, label %loop, label %after_loop
+
+loop:                                             ; preds = %condition
+  %facti3 = load i32, i32* %facti
+  %n4 = load i32, i32* %n1
+  %multiply = mul i32 %facti3, %n4
+  store i32 %multiply, i32* %facti
+  %n5 = load i32, i32* %n1
+  %"incremented/decremented" = add i32 %n5, -1
+  store i32 %"incremented/decremented", i32* %n1
+  br label %condition
+
+after_loop:                                       ; preds = %condition
+  br label %functionReturn
+}
+
+define i32 @factr(i32 %n) {
+entry:
+  %factr = alloca i32, i32 0
+  %n1 = alloca i32, i32 0
+  store i32 %n, i32* %n1
+  %n2 = load i32, i32* %n1
+  %equal = icmp eq i32 %n2, 1
+  %0 = zext i1 %equal to i32
+  %"ifcond-if_EQ_1 - iftrue" = icmp eq i32 %0, 1
+  br i1 %"ifcond-if_EQ_1 - iftrue", label %then, label %else
+
+functionReturn:                                   ; preds = %after_if
+  %1 = load i32, i32* %factr
+  ret i32 %1
+
+then:                                             ; preds = %entry
+  store i32 1, i32* %factr
+  br label %after_if
+
+else:                                             ; preds = %entry
+  %n3 = load i32, i32* %n1
+  %n4 = load i32, i32* %n1
+  %sub = sub i32 %n4, 1
+  %2 = call i32 @factr(i32 %sub)
+  %multiply = mul i32 %n3, %2
+  store i32 %multiply, i32* %factr
+  br label %after_if
+
+after_if:                                         ; preds = %else, %then
+  br label %functionReturn
+}
+
+define i32 @main() {
+entry:
+  %0 = call i32 @facti(i32 5)
+  %1 = call i32 @writeln(i32 %0)
+  %2 = call i32 @factr(i32 5)
+  %3 = call i32 @writeln(i32 %2)
+  br label %functionReturn
+
+functionReturn:                                   ; preds = %entry
+  ret i32 0
+}

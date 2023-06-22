@@ -1,0 +1,24 @@
+; ModuleID = 'expressions'
+source_filename = "expressions"
+
+@n = global i32 0
+
+declare i32 @writeln(i32)
+
+declare i32 @readln(i32*)
+
+define i32 @main() {
+entry:
+  %"readln into address" = call i32 @readln(i32* @n)
+  %n = load i32, i32* @n
+  %sub = sub i32 %n, 1
+  %multiply = mul i32 %sub, 5
+  %add = add i32 %multiply, 10
+  store i32 %add, i32* @n
+  %n1 = load i32, i32* @n
+  %0 = call i32 @writeln(i32 %n1)
+  br label %functionReturn
+
+functionReturn:                                   ; preds = %entry
+  ret i32 0
+}

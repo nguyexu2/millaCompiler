@@ -1,0 +1,9 @@
+program ifless;
+
+begin
+    if 3=3 then
+    begin
+        writeln(3);
+        writeln(4);
+    end;
+end.

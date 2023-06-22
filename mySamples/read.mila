@@ -1,0 +1,13 @@
+program readTest;
+
+function a() :integer;
+var
+    x: integer;
+begin
+    readln(x);
+    writeln(x);
+end;
+
+begin
+    a()
+end.

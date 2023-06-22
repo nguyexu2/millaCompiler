@@ -1,0 +1,18 @@
+program localVars;
+
+function a(x:integer; y:integer) :integer;
+var
+    z:integer;
+begin
+    writeln(x);
+    writeln(y);
+    z:= 5;
+    writeln(z);
+
+    x := y + z;
+    writeln(x);
+end;
+
+begin
+    a(3, 4);
+end.

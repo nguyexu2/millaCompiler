@@ -1,0 +1,44 @@
+program testBreak;
+
+procedure a();
+var J : integer;
+begin
+    writeln(111111);
+    J:=0;
+    for I:= 0 to 100 do
+    begin
+        if J = 3 then
+            break;
+
+        writeln(I);
+        inc(J);
+    end;
+
+    writeln(222222);
+    J := 0;
+    
+    while 1 do
+    begin
+        writeln(J);
+
+        if J = 3 then
+            break;
+        
+        inc(J);
+    end;
+    writeln(3333333);
+
+    for a:= 0 to 10 do
+    begin
+        for b:= a to 100 do
+        begin
+            writeln(b);
+            if b>=5 then break;
+        end;
+    end;
+end;
+
+begin
+    a();
+    writeln(444444);
+end.

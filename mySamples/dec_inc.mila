@@ -1,0 +1,17 @@
+program decTest;
+
+function a() :integer;
+var
+    x := 10 :integer;
+begin
+    writeln(x);
+    dec(x);
+    writeln(x);
+    inc(x);
+    inc(x);
+    writeln(x);
+end;
+
+begin   
+    a();
+end.

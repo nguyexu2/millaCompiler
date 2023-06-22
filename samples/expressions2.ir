@@ -1,0 +1,55 @@
+; ModuleID = 'expressions2'
+source_filename = "expressions2"
+
+@x = global i32 0
+@y = global i32 0
+@a = global i32 0
+@b = global i32 0
+@c = global i32 0
+@d = global i32 0
+
+declare i32 @writeln(i32)
+
+declare i32 @readln(i32*)
+
+define i32 @main() {
+entry:
+  %"readln into address" = call i32 @readln(i32* @x)
+  %"readln into address1" = call i32 @readln(i32* @y)
+  %x = load i32, i32* @x
+  %y = load i32, i32* @y
+  %add = add i32 %x, %y
+  store i32 %add, i32* @a
+  %y2 = load i32, i32* @y
+  %x3 = load i32, i32* @x
+  %sub = sub i32 %y2, %x3
+  store i32 %sub, i32* @b
+  %x4 = load i32, i32* @x
+  %0 = call i32 @writeln(i32 %x4)
+  %y5 = load i32, i32* @y
+  %1 = call i32 @writeln(i32 %y5)
+  %a = load i32, i32* @a
+  %2 = call i32 @writeln(i32 %a)
+  %b = load i32, i32* @b
+  %3 = call i32 @writeln(i32 %b)
+  %x6 = load i32, i32* @x
+  %a7 = load i32, i32* @a
+  %add8 = add i32 %x6, %a7
+  %y9 = load i32, i32* @y
+  %b10 = load i32, i32* @b
+  %sub11 = sub i32 %y9, %b10
+  %multiply = mul i32 %add8, %sub11
+  store i32 %multiply, i32* @c
+  %c = load i32, i32* @c
+  %4 = call i32 @writeln(i32 %c)
+  %a12 = load i32, i32* @a
+  %b13 = load i32, i32* @b
+  %remainder = srem i32 %a12, %b13
+  store i32 %remainder, i32* @d
+  %d = load i32, i32* @d
+  %5 = call i32 @writeln(i32 %d)
+  br label %functionReturn
+
+functionReturn:                                   ; preds = %entry
+  ret i32 0
+}

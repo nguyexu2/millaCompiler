@@ -1,0 +1,5 @@
+program conversion;
+
+begin
+    writeln(0 < 1);
+end.

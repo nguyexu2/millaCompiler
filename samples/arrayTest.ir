@@ -1,0 +1,96 @@
+; ModuleID = 'arrayAverage'
+source_filename = "arrayAverage"
+
+@I = global i32 0
+@TEMP = global i32 0
+@NUM = global i32 0
+@SUM = global i32 0
+@X = global [41 x i32] zeroinitializer
+
+declare i32 @writeln(i32)
+
+declare i32 @readln(i32*)
+
+define i32 @main() {
+entry:
+  store i32 -20, i32* @I
+  br label %condition
+
+functionReturn:                                   ; preds = %after_loop14
+  ret i32 0
+
+condition:                                        ; preds = %loop, %entry
+  %I = load i32, i32* @I
+  %"loopcond_cur<=endval" = icmp sle i32 %I, 20
+  br i1 %"loopcond_cur<=endval", label %loop, label %after_loop
+
+loop:                                             ; preds = %condition
+  %I1 = load i32, i32* @I
+  %0 = sub i32 %I1, -20
+  %1 = getelementptr [41 x i32], [41 x i32]* @X, i32 0, i32 %0
+  store i32 0, i32* %1
+  %I2 = load i32, i32* @I
+  %"next val in iteration" = add i32 %I2, 1
+  store i32 %"next val in iteration", i32* @I
+  br label %condition
+
+after_loop:                                       ; preds = %condition
+  %"readln into address" = call i32 @readln(i32* @NUM)
+  store i32 0, i32* @I
+  br label %condition3
+
+condition3:                                       ; preds = %loop4, %after_loop
+  %I6 = load i32, i32* @I
+  %NUM = load i32, i32* @NUM
+  %sub = sub i32 %NUM, 1
+  %"loopcond_cur<=endval7" = icmp sle i32 %I6, %sub
+  br i1 %"loopcond_cur<=endval7", label %loop4, label %after_loop5
+
+loop4:                                            ; preds = %condition3
+  %"readln into address8" = call i32 @readln(i32* @TEMP)
+  %TEMP = load i32, i32* @TEMP
+  %2 = sub i32 %TEMP, -20
+  %3 = getelementptr [41 x i32], [41 x i32]* @X, i32 0, i32 %2
+  %TEMP9 = load i32, i32* @TEMP
+  %4 = sub i32 %TEMP9, -20
+  %5 = getelementptr [41 x i32], [41 x i32]* @X, i32 0, i32 %4
+  %6 = load i32, i32* %5
+  %add = add i32 %6, 1
+  store i32 %add, i32* %3
+  %I10 = load i32, i32* @I
+  %"next val in iteration11" = add i32 %I10, 1
+  store i32 %"next val in iteration11", i32* @I
+  br label %condition3
+
+after_loop5:                                      ; preds = %condition3
+  store i32 0, i32* @SUM
+  store i32 20, i32* @I
+  br label %condition12
+
+condition12:                                      ; preds = %loop13, %after_loop5
+  %I15 = load i32, i32* @I
+  %"loopcond_cur>=endval" = icmp sge i32 %I15, -20
+  br i1 %"loopcond_cur>=endval", label %loop13, label %after_loop14
+
+loop13:                                           ; preds = %condition12
+  %SUM = load i32, i32* @SUM
+  %I16 = load i32, i32* @I
+  %I17 = load i32, i32* @I
+  %7 = sub i32 %I17, -20
+  %8 = getelementptr [41 x i32], [41 x i32]* @X, i32 0, i32 %7
+  %9 = load i32, i32* %8
+  %multiply = mul i32 %I16, %9
+  %add18 = add i32 %SUM, %multiply
+  store i32 %add18, i32* @SUM
+  %I19 = load i32, i32* @I
+  %"next val in iteration20" = add i32 %I19, -1
+  store i32 %"next val in iteration20", i32* @I
+  br label %condition12
+
+after_loop14:                                     ; preds = %condition12
+  %SUM21 = load i32, i32* @SUM
+  %NUM22 = load i32, i32* @NUM
+  %div = sdiv i32 %SUM21, %NUM22
+  %10 = call i32 @writeln(i32 %div)
+  br label %functionReturn
+}

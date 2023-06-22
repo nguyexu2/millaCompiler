@@ -1,0 +1,84 @@
+; ModuleID = 'indirectrecursion'
+source_filename = "indirectrecursion"
+
+declare i32 @writeln(i32)
+
+declare i32 @readln(i32*)
+
+define i32 @isodd(i32 %n) {
+entry:
+  %isodd = alloca i32, i32 0
+  %n1 = alloca i32, i32 0
+  store i32 %n, i32* %n1
+  %n2 = load i32, i32* %n1
+  %greater = icmp sgt i32 %n2, 0
+  %0 = zext i1 %greater to i32
+  %"ifcond-if_EQ_1 - iftrue" = icmp eq i32 %0, 1
+  br i1 %"ifcond-if_EQ_1 - iftrue", label %then, label %else
+
+functionReturn:                                   ; preds = %after_if, %then
+  %1 = load i32, i32* %isodd
+  ret i32 %1
+
+then:                                             ; preds = %entry
+  %n3 = load i32, i32* %n1
+  %sub = sub i32 %n3, 1
+  %2 = call i32 @iseven(i32 %sub)
+  store i32 %2, i32* %isodd
+  br label %functionReturn
+
+else:                                             ; preds = %entry
+  br label %after_if
+
+after_if:                                         ; preds = %else, %after_exit
+  store i32 0, i32* %isodd
+  br label %functionReturn
+
+after_exit:                                       ; No predecessors!
+  br label %after_if
+}
+
+define i32 @iseven(i32 %n) {
+entry:
+  %iseven = alloca i32, i32 0
+  %n1 = alloca i32, i32 0
+  store i32 %n, i32* %n1
+  %n2 = load i32, i32* %n1
+  %greater = icmp sgt i32 %n2, 0
+  %0 = zext i1 %greater to i32
+  %"ifcond-if_EQ_1 - iftrue" = icmp eq i32 %0, 1
+  br i1 %"ifcond-if_EQ_1 - iftrue", label %then, label %else
+
+functionReturn:                                   ; preds = %after_if, %then
+  %1 = load i32, i32* %iseven
+  ret i32 %1
+
+then:                                             ; preds = %entry
+  %n3 = load i32, i32* %n1
+  %sub = sub i32 %n3, 1
+  %2 = call i32 @isodd(i32 %sub)
+  store i32 %2, i32* %iseven
+  br label %functionReturn
+
+else:                                             ; preds = %entry
+  br label %after_if
+
+after_if:                                         ; preds = %else, %after_exit
+  store i32 1, i32* %iseven
+  br label %functionReturn
+
+after_exit:                                       ; No predecessors!
+  br label %after_if
+}
+
+define i32 @main() {
+entry:
+  %0 = call i32 @iseven(i32 11)
+  %1 = call i32 @writeln(i32 %0)
+  %2 = call i32 @isodd(i32 11)
+  %3 = call i32 @writeln(i32 %2)
+  br label %functionReturn
+
+functionReturn:                                   ; preds = %entry
+  ret i32 0
+}

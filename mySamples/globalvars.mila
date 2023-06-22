@@ -1,0 +1,19 @@
+program globalvars;
+
+
+function a() :integer;
+begin
+    writeln(5);
+end;
+
+var 
+    y:integer;
+
+const
+    b = 1100;
+
+begin
+    y:=10;
+    writeln(y);
+    writeln(b);
+end.

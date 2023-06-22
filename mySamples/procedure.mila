@@ -1,0 +1,12 @@
+program procedureTest;
+
+procedure a();
+begin
+    writeln(3);
+end;
+
+begin
+    writeln(0);
+    a();
+    writeln(0);
+end.

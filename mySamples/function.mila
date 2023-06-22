@@ -1,0 +1,11 @@
+program mila;
+
+function b(): integer;
+begin
+    b := 10;
+    writeln( 2 + 1);
+end;
+
+begin
+    writeln(b());
+end.

@@ -1,0 +1,15 @@
+program const1;
+
+const
+    x = 5;
+    b = 20;
+
+function a():integer;
+begin
+    writeln(x);
+end;
+
+begin
+    a();
+    writeln(b * x);
+end.

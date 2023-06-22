@@ -1,0 +1,17 @@
+program forwardTesting;
+
+function b():integer;forward;
+
+function a():integer;
+begin
+    b();
+end;
+
+function b():integer;
+begin
+    writeln(5);
+end;
+
+begin
+    a();
+end.

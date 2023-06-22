@@ -1,0 +1,14 @@
+program forloopTest;
+
+begin
+    writeln(11111);
+    for I := 0 to 5 do
+    begin
+        writeln(22222);
+        writeln(I);
+        for J:= 0 to I do
+        begin
+            writeln(J);
+        end;
+    end;
+end.

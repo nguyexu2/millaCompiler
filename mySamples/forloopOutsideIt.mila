@@ -1,0 +1,29 @@
+program outsideVar;
+
+procedure a();
+var
+    I: integer;
+begin
+    I:= 5;
+    for I to 10 do
+    begin
+        writeln(I);
+    end;
+
+    writeln(I + 5);
+end;
+
+procedure b();
+begin
+    
+    for I := 5 to 10 do
+    begin
+        writeln(I);
+    end;
+end;
+
+begin
+    a();
+    writeln(111111111);
+    b();
+end.

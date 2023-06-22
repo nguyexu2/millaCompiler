@@ -1,0 +1,183 @@
+; ModuleID = 'factorization'
+source_filename = "factorization"
+
+declare i32 @writeln(i32)
+
+declare i32 @readln(i32*)
+
+define void @factorization(i32 %n) {
+entry:
+  %i = alloca i32, i32 0
+  %max = alloca i32, i32 0
+  %n1 = alloca i32, i32 0
+  store i32 %n, i32* %n1
+  %n2 = load i32, i32* %n1
+  %0 = call i32 @writeln(i32 %n2)
+  %n3 = load i32, i32* %n1
+  %less = icmp slt i32 %n3, 4
+  %1 = zext i1 %less to i32
+  %"ifcond-if_EQ_1 - iftrue" = icmp eq i32 %1, 1
+  br i1 %"ifcond-if_EQ_1 - iftrue", label %then, label %else
+
+functionReturn:                                   ; preds = %after_if48, %then
+  ret void
+
+then:                                             ; preds = %entry
+  %n4 = load i32, i32* %n1
+  %2 = call i32 @writeln(i32 %n4)
+  br label %functionReturn
+
+else:                                             ; preds = %entry
+  br label %after_if
+
+after_if:                                         ; preds = %else, %after_exit
+  br label %condition
+
+after_exit:                                       ; No predecessors!
+  br label %after_if
+
+condition:                                        ; preds = %loop, %after_if
+  %n5 = load i32, i32* %n1
+  %remainder = srem i32 %n5, 2
+  %equal = icmp eq i32 %remainder, 0
+  %3 = zext i1 %equal to i32
+  %4 = icmp eq i32 %3, 1
+  br i1 %4, label %loop, label %after_loop
+
+loop:                                             ; preds = %condition
+  %5 = call i32 @writeln(i32 2)
+  %n6 = load i32, i32* %n1
+  %div = sdiv i32 %n6, 2
+  store i32 %div, i32* %n1
+  br label %condition
+
+after_loop:                                       ; preds = %condition
+  br label %condition7
+
+condition7:                                       ; preds = %loop8, %after_loop
+  %n10 = load i32, i32* %n1
+  %remainder11 = srem i32 %n10, 3
+  %equal12 = icmp eq i32 %remainder11, 0
+  %6 = zext i1 %equal12 to i32
+  %7 = icmp eq i32 %6, 1
+  br i1 %7, label %loop8, label %after_loop9
+
+loop8:                                            ; preds = %condition7
+  %8 = call i32 @writeln(i32 3)
+  %n13 = load i32, i32* %n1
+  %div14 = sdiv i32 %n13, 3
+  store i32 %div14, i32* %n1
+  br label %condition7
+
+after_loop9:                                      ; preds = %condition7
+  %n15 = load i32, i32* %n1
+  store i32 %n15, i32* %max
+  store i32 5, i32* %i
+  br label %condition16
+
+condition16:                                      ; preds = %after_loop35, %after_loop9
+  %i19 = load i32, i32* %i
+  %max20 = load i32, i32* %max
+  %lessEq = icmp sle i32 %i19, %max20
+  %9 = zext i1 %lessEq to i32
+  %10 = icmp eq i32 %9, 1
+  br i1 %10, label %loop17, label %after_loop18
+
+loop17:                                           ; preds = %condition16
+  br label %condition21
+
+after_loop18:                                     ; preds = %condition16
+  %n49 = load i32, i32* %n1
+  %equal50 = icmp ne i32 %n49, 1
+  %11 = zext i1 %equal50 to i32
+  %"ifcond-if_EQ_1 - iftrue51" = icmp eq i32 %11, 1
+  br i1 %"ifcond-if_EQ_1 - iftrue51", label %then46, label %else47
+
+condition21:                                      ; preds = %loop22, %loop17
+  %n24 = load i32, i32* %n1
+  %i25 = load i32, i32* %i
+  %remainder26 = srem i32 %n24, %i25
+  %equal27 = icmp eq i32 %remainder26, 0
+  %12 = zext i1 %equal27 to i32
+  %13 = icmp eq i32 %12, 1
+  br i1 %13, label %loop22, label %after_loop23
+
+loop22:                                           ; preds = %condition21
+  %i28 = load i32, i32* %i
+  %14 = call i32 @writeln(i32 %i28)
+  %n29 = load i32, i32* %n1
+  %i30 = load i32, i32* %i
+  %div31 = sdiv i32 %n29, %i30
+  store i32 %div31, i32* %n1
+  br label %condition21
+
+after_loop23:                                     ; preds = %condition21
+  %i32 = load i32, i32* %i
+  %add = add i32 %i32, 2
+  store i32 %add, i32* %i
+  br label %condition33
+
+condition33:                                      ; preds = %loop34, %after_loop23
+  %n36 = load i32, i32* %n1
+  %i37 = load i32, i32* %i
+  %remainder38 = srem i32 %n36, %i37
+  %equal39 = icmp eq i32 %remainder38, 0
+  %15 = zext i1 %equal39 to i32
+  %16 = icmp eq i32 %15, 1
+  br i1 %16, label %loop34, label %after_loop35
+
+loop34:                                           ; preds = %condition33
+  %i40 = load i32, i32* %i
+  %17 = call i32 @writeln(i32 %i40)
+  %n41 = load i32, i32* %n1
+  %i42 = load i32, i32* %i
+  %div43 = sdiv i32 %n41, %i42
+  store i32 %div43, i32* %n1
+  br label %condition33
+
+after_loop35:                                     ; preds = %condition33
+  %i44 = load i32, i32* %i
+  %add45 = add i32 %i44, 4
+  store i32 %add45, i32* %i
+  br label %condition16
+
+then46:                                           ; preds = %after_loop18
+  %n52 = load i32, i32* %n1
+  %18 = call i32 @writeln(i32 %n52)
+  br label %after_if48
+
+else47:                                           ; preds = %after_loop18
+  br label %after_if48
+
+after_if48:                                       ; preds = %else47, %then46
+  br label %functionReturn
+}
+
+define i32 @main() {
+entry:
+  call void @factorization(i32 0)
+  call void @factorization(i32 1)
+  call void @factorization(i32 2)
+  call void @factorization(i32 3)
+  call void @factorization(i32 4)
+  call void @factorization(i32 5)
+  call void @factorization(i32 6)
+  call void @factorization(i32 7)
+  call void @factorization(i32 8)
+  call void @factorization(i32 9)
+  call void @factorization(i32 10)
+  call void @factorization(i32 11)
+  call void @factorization(i32 12)
+  call void @factorization(i32 13)
+  call void @factorization(i32 14)
+  call void @factorization(i32 15)
+  call void @factorization(i32 16)
+  call void @factorization(i32 17)
+  call void @factorization(i32 100)
+  call void @factorization(i32 131)
+  call void @factorization(i32 133)
+  br label %functionReturn
+
+functionReturn:                                   ; preds = %entry
+  ret i32 0
+}
